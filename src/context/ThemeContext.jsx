@@ -11,10 +11,12 @@ export const useThemeMode = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [mode, setMode] = useState(() => {
-    const savedMode = localStorage.getItem('themeMode');
-    return savedMode || 'light';
-  });
+  const [mode, setMode] = useState('light');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('themeMode');
+    if (saved === 'dark' || saved === 'light') setMode(saved);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('themeMode', mode);
